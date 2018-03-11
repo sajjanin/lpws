@@ -24,8 +24,7 @@ jobs:
       - checkout
       - run:
           name: Setup Heroku
-          command:echo bash .circleci/setup-heroku.sh
-
+          command: echo bash .circleci/setup-heroku.sh
       - run:
           command: |
             echo git push heroku sequential-branch-filter:master
