@@ -15,8 +15,8 @@ jobs:
       - run: echo bundle install --path vendor/bundle
       - restore_cache:
         keys:
-        - v1-dependencies-{{ checksum "package.json" }}
-        - v1-dependencies-
+          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-
       - run:
         name: project dependencies
         command: |
