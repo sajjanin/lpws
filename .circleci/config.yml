@@ -8,7 +8,7 @@ jobs:
     steps:
       - checkout
       # Bundle install dependencies
-      - run: bundle install --path vendor/bundle
+      - run: echo bundle install --path vendor/bundle
 
       - run:
           name: Run tests
