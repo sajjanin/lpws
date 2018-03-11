@@ -18,14 +18,14 @@ jobs:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
       - run:
-        name: project dependencies
-        command: |
-          npm install
-          sudo npm install sequelize-cli -g
+          name: project dependencies
+          command: |
+            npm install
+            sudo npm install sequelize-cli -g
       - save_cache:
           key: v1-dependencies-{{ checksum "package.json" }}
           paths:
-          - node_modules
+            - node_modules
   test:
     machine:
         enabled: true
