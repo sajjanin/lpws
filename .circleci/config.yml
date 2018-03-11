@@ -22,25 +22,9 @@ jobs:
                     key: v1-dependencies-{{ checksum "package.json" }}
                     paths:
                         - node_modules
-    test:
-        docker:
-            - image: circleci/node:8.9.4-stretch
-              environment:
-                PG_HOST: 127.0.0.1
-                PG_USER: root
-                NODE_ENV: test
-        steps:
             - run:
                 name: test
                 command: npm test
-           
-            - run:
-                name: database setup
-                command: |
-                    npm run migrate
-                    npm run seeds
-                    npm run excel
-            
     deploy:
         docker:
             - image: circleci/node:8.9.4-stretch
@@ -60,9 +44,11 @@ jobs:
                 command: |
                     echo Deploying
 workflows:
-    build_and_test:
+    version: 2
+    build_and_deploy:
     jobs:
       - build
-      - test
-
+      - deploy:
+          requires:
+            - build
 
