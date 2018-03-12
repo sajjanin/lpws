@@ -30,7 +30,7 @@ jobs:
   test:
     machine:
       environment:
-        NODE_ENV: development
+        - NODE_ENV: development
     working_directory: ~/repo
     steps:
       - run:
@@ -41,7 +41,7 @@ jobs:
   deploy:
     machine:
       environment:
-      S3Bucket: "s3://dev-react-static-test-s3bucket-ujwcuvt88ksu/"
+      -  S3Bucket: "s3://dev-react-static-test-s3bucket-ujwcuvt88ksu/"
     working_directory: ~/repo
     steps:
       - run:
