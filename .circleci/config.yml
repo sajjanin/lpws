@@ -15,6 +15,6 @@ jobs:
       - run:
           name: install and build
           command: |
-            echo "${CIRCLE_BRANCH}"
-            echo "${PG_HOST}"
-            echo "$SHORT_HASH"
+            echo "${CIRCLE_BRANCH}" &&
+            echo "${PG_HOST}" &&
+            echo "$SHORT_HASH" &&
