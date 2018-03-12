@@ -36,8 +36,8 @@ jobs:
           command: |
             echo Node ENV $(NODE_ENV)
             echo Test would be run here. Issue running in Circle
-      environment:
-        - NODE_ENV: "development"
+          environment:
+            - NODE_ENV: "development"
   deploy:
     machine:
 
