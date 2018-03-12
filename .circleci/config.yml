@@ -37,17 +37,6 @@ jobs:
       - run:
           name: Run tests
           command: npm run test
-  deploy:
-    machine:
-        enabled: true
-    working_directory: ~/repo
-    environment:
-      HEROKU_APP: "sleepy-refuge-55486"
-    awsdev:
-      branch: master
-      commands:
-        - pip install awsebcli --user
-        - aws s3 cp ~/repo/build s3://dev-react-static-test-s3bucket-ujwcuvt88ksu/ --recursive
 workflows:
   version: 2
   build-and-deploy:
