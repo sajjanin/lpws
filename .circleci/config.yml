@@ -3,7 +3,7 @@ version: 2.0
 jobs:
   build:
     docker:
-      - image: alpine:latest
+      - image: circleci/node:8.9.4-stretch
         environment:
         PG_HOST: 127.0.0.1
         PG_USER: root
@@ -19,8 +19,6 @@ jobs:
       - run:
           name: install and build
           command: |
-            apt-get install nodejs
-            apt-get install npm          
             npm install
             npm run-script build
       - store_artifacts:
