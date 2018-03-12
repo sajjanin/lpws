@@ -38,6 +38,18 @@ jobs:
           name: Run tests
           command: |
             echo Test would be run here. Issue running in Circle
+  deploy:
+    machine:
+      enabled: true
+    working_directory: ~/repo
+    environment:
+      S3Bucket: "s3://dev-react-static-test-s3bucket-ujwcuvt88ksu/"
+    awsdev:
+      branch: master
+      commands:
+        - pip install awsebcli --user
+        - echo $(S3Bucket)
+        - aws s3 cp ~/repo/build s3://dev-react-static-test-s3bucket-ujwcuvt88ksu/ --recursive
 workflows:
   version: 2
   build-and-deploy:
