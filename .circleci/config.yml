@@ -47,7 +47,6 @@ jobs:
       - run:
           name: Deploy to s3
           command: |
-          # Update
             apk add --update python py-pip
             pip install awsebcli --user
             echo $(S3Bucket)
