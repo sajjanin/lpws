@@ -46,7 +46,7 @@ jobs:
     working_directory: ~/repo
     steps:
       - run:
-        name: Deploy to s3
+          name: Deploy to s3
           command: |
             pip install awsebcli --user
             echo $(S3Bucket)
