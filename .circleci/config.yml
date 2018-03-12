@@ -41,7 +41,7 @@ jobs:
             - NODE_ENV: "development"
   deploy:
     docker:
-      - image: circleci/node:8.9.4-stretch
+      - image: alpine:latest
     working_directory: ~/repo
     steps:
       - run:
