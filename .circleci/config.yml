@@ -29,9 +29,8 @@ jobs:
             - node_modules
   test:
     machine:
-        enabled: true
-        environment:
-          NODE_ENV: development
+      environment:
+        NODE_ENV: development
     working_directory: ~/repo
     steps:
       - run:
@@ -40,7 +39,6 @@ jobs:
             echo Test would be run here. Issue running in Circle
   deploy:
     machine:
-      enabled: true    
       environment:
       S3Bucket: "s3://dev-react-static-test-s3bucket-ujwcuvt88ksu/"
     working_directory: ~/repo
