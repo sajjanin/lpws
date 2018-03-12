@@ -37,10 +37,6 @@ jobs:
       - run:
           name: Run tests
           command: npm run test
-          
-  dependencies:
-    pre:
-      - pip install awsebcli --user
   deploy:
     machine:
         enabled: true
@@ -51,6 +47,7 @@ jobs:
       steps:
         branch: master
         commands:
+          - pip install awsebcli --user
           - aws s3 cp ~/repo/build s3://dev-react-static-test-s3bucket-ujwcuvt88ksu/ --recursive
 workflows:
   version: 2
