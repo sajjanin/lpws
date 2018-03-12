@@ -43,14 +43,14 @@ jobs:
 
     working_directory: ~/repo
     steps:
-      environment:
-        - S3Bucket: "s3://dev-react-static-test-s3bucket-ujwcuvt88ksu/"
       - run:
           name: Deploy to s3
           command: |
             pip install awsebcli --user
             echo $(S3Bucket)
             aws s3 cp ~/repo/build s3://dev-react-static-test-s3bucket-ujwcuvt88ksu/ --recursive
+          environment:
+            - S3Bucket: "s3://dev-react-static-test-s3bucket-ujwcuvt88ksu/"
 workflows:
   version: 2
   build-and-deploy:
