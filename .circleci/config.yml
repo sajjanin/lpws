@@ -28,7 +28,8 @@ jobs:
           paths:
             - node_modules
   test:
-    machine:
+    docker:
+      - image: circleci/node:8.9.4-stretch
     working_directory: ~/repo
     steps:
       - run:
@@ -39,7 +40,8 @@ jobs:
           environment:
             - NODE_ENV: "development"
   deploy:
-    machine:
+    docker:
+      - image: circleci/node:8.9.4-stretch
     working_directory: ~/repo
     steps:
       - run:
