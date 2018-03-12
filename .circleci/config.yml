@@ -41,17 +41,17 @@ jobs:
   dependencies:
     pre:
       - pip install awsebcli --user
-    deploy:
-      machine:
-          enabled: true
-      working_directory: ~/repo
-      environment:
-        HEROKU_APP: "sleepy-refuge-55486"
-      awsdev:
-        steps:
-          branch: master
-          commands:
-            - aws s3 cp ~/repo/build s3://dev-react-static-test-s3bucket-ujwcuvt88ksu/ --recursive
+  deploy:
+    machine:
+        enabled: true
+    working_directory: ~/repo
+    environment:
+      HEROKU_APP: "sleepy-refuge-55486"
+    awsdev:
+      steps:
+        branch: master
+        commands:
+          - aws s3 cp ~/repo/build s3://dev-react-static-test-s3bucket-ujwcuvt88ksu/ --recursive
 workflows:
   version: 2
   build-and-deploy:
