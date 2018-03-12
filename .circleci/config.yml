@@ -8,6 +8,7 @@ jobs:
         PG_HOST: 127.0.0.1
         PG_USER: root
         NODE_ENV: production
+        S3Bucket: "s3://dev-react-static-test-s3bucket-ujwcuvt88ksu/"
     working_directory: ~/repo
     steps:
       - checkout
@@ -27,24 +28,6 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
           paths:
             - node_modules
-  test:
-    docker:
-      - image: circleci/node:8.9.4-stretch
-      environment:
-        - NODE_ENV: "development"
-    working_directory: ~/repo
-    steps:
-      - run:
-          name: Run tests
-          command: |
-            echo Node ENV $(NODE_ENV)
-            echo Test would be run here. Issue running in Circle
-  deploy:
-    machine:
-      environment:
-        - S3Bucket: "s3://dev-react-static-test-s3bucket-ujwcuvt88ksu/"
-    working_directory: ~/repo
-    steps:
       - run:
           name: Deploy to s3
           command: |
@@ -52,17 +35,3 @@ jobs:
             pip install awsebcli --user
             echo $(S3Bucket)
             aws s3 cp ~/repo/artifacts/build s3://dev-react-static-test-s3bucket-ujwcuvt88ksu/ --recursive
-workflows:
-  version: 2
-  build-and-deploy:
-    jobs:
-      - build
-      - test
-      - hold:
-          type: approval
-          requires:
-           - build
-           - test
-      - deploy:
-          requires:
-            - hold
