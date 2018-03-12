@@ -8,7 +8,7 @@ jobs:
         PG_HOST: 127.0.0.1
         PG_USER: root
         NODE_ENV: test
-    working_directory: ~/circleci-demo-workflows
+    working_directory: ~/repo
     steps:
       - checkout
       # Bundle install dependencies
@@ -21,7 +21,9 @@ jobs:
           name: project dependencies
           command: |
             npm install
-            sudo npm install sequelize-cli -g
+            npm build
+      - store_artifacts:
+          path: ~/repo/artifacts
       - save_cache:
           key: v1-dependencies-{{ checksum "package.json" }}
           paths:
@@ -29,29 +31,27 @@ jobs:
   test:
     machine:
         enabled: true
-    working_directory: ~/circleci-demo-workflows
+    working_directory: ~/repo
     steps:
       - checkout
       - run:
           name: Run tests
-          command: echo npm test
-  deploy:
-    machine:
-        enabled: true
-    working_directory: ~/circleci-demo-workflows
-    environment:
-      HEROKU_APP: "sleepy-refuge-55486"
-    steps:
-      - checkout
-      - run:
-          name: Setup Heroku
-          command: echo bash .circleci/setup-heroku.sh
-      - run:
-          command: |
-            echo git push heroku sequential-branch-filter:master
-            echo heroku run rake db:migrate
-            echo sleep 5 # sleep for 5 seconds to wait for dynos
-            echo heroku restart
+          command: npm run test
+          
+  dependencies:
+    pre:
+      - pip install awsebcli --user
+    deploy:
+      machine:
+          enabled: true
+      working_directory: ~/repo
+      environment:
+        HEROKU_APP: "sleepy-refuge-55486"
+      awsdev:
+        steps:
+          branch: master
+          commands:
+            - aws s3 cp ~/repo/build s3://dev-react-static-test-s3bucket-ujwcuvt88ksu/ --recursive
 workflows:
   version: 2
   build-and-deploy:
