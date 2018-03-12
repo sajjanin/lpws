@@ -9,6 +9,7 @@ jobs:
         PG_USER: root
         NODE_ENV: production
         S3Bucket: "s3://dev-react-static-test-s3bucket-ujwcuvt88ksu/"
+        SHORT_HASH: $(echo $CIRCLE_SHA1 | cut -c -7)
     working_directory: ~/repo
     steps:
       - run:
@@ -16,3 +17,4 @@ jobs:
           command: |
             echo "${CIRCLE_BRANCH}"
             echo "${PG_HOST}"
+            echo "$SHORT_HASH"
