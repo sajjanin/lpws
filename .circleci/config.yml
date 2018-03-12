@@ -17,4 +17,4 @@ jobs:
           command: |
             echo "${CIRCLE_BRANCH}" &&
             echo "${PG_HOST}" &&
-            echo "$SHORT_HASH" 
+            echo "$AWS_ACCESS_KEY_ID" 
